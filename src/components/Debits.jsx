@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import AccountBalance from './AccountBalance';
 
-// AND I should see a title of 'Debits' on the page
+// Viewing the Account Balance on the Debits page:
+
 // GIVEN I am on the Debits page
-// WHEN I view the Debits display area
-//      THEN I should see all of my debits displayed
-//      AND each Debit should display a Debit description
-//      AND each Debit should display a Debit amount
-//      AND each Debit should display a Debit date
+// WHEN I view the Account Balance display area
+// THEN I should see my Account Balance displayed
+
 class Debits extends Component {
     constructor(){
         super();
         this.state={
+            displayBalance: false,
             debitsInfo: [],
             found: false,
         }
@@ -33,7 +34,10 @@ class Debits extends Component {
             })
             .catch(err=>console.log(err))
     }
-     render() {
+    displayBalance=()=>{
+        this.state.displayBalance?this.setState({displayBalance: false }):this.setState({displayBalance: true })
+    }
+    render() {
         const items = [];
         if (this.state.found){ 
             for(let i = 0; i < this.state.debitsInfo.length; i++){
@@ -48,11 +52,15 @@ class Debits extends Component {
                     </div>)
             }
         }
+        
         return (
              <div>
                  <h1>Debits</h1>
+                 <button onClick={this.displayBalance}>Display Balance</button>
                  <Link to="/">Back to Home</Link>
+                    {(this.state.displayBalance)?<AccountBalance accountBalance="1600"/>:""} 
                     {items}
+                    
                  {/* Debits: {accountBalance} */}
                  {/* Balance: {this.props.accountBalance} */}
                 
