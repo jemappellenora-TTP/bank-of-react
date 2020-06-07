@@ -5,6 +5,7 @@ import Home from './components/Home'
 import UserProfile from './components/UserProfile'
 import LogIn from './LogIn'
 import Debits from './components/Debits'
+import Credits from './components/Credits'
 
 class App extends Component {
   constructor(){
@@ -33,6 +34,7 @@ class App extends Component {
     const UserProfileComponent=()=>(<UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}/>);
     const LogInComponent=()=>(<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn}{...this.props}/>)
     const DebitsComponent=()=>(<Debits debits={this.state.accountBalance.debits}/>)
+    const CreditsComponent=()=>(<Credits credits={this.state.accountBalance.credits}/>)
     return (
       <Router>
         <div>
@@ -40,6 +42,7 @@ class App extends Component {
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
           <Route exact path="/Debits" render={DebitsComponent}/>
+          <Route exact path="/Credits" render={CreditsComponent}/>
         </div>    
       </Router>
     );
