@@ -4,11 +4,11 @@ import axios from 'axios';
 import AccountBalance from './AccountBalance';
 import AddDebitsForm from './AddDebitsForm'
 
-
 class Debits extends Component {
     constructor(){
         super();
         this.state={
+            allDebits:[],
             displayBalance: false,
             addDebits: false,
             found: true,
@@ -24,14 +24,18 @@ class Debits extends Component {
         this.state.addDebits?this.setState({addDebits: false }):this.setState({addDebits: true })
     }
 
+    updateDebits=()=>{
+        const intCards= this.props
+        this.setState({allDebits: intCards})
+    }
+
     render() {
-        const creditsSum = this.props.creditsSum;
+        const creditsSum = this.props.credits;
         const items = [];
         let debitsSum= 0;
         let totalCards= [...this.props.debits].length
         if (this.state.found){ 
             for(let i=totalCards-1; i>=0;i--){
-            // for(let i = 0; i < totalCards; i++){
                 debitsSum= debitsSum+ this.props.debits[i].amount;
                 items.push(
                     <div key={i}>
@@ -44,7 +48,6 @@ class Debits extends Component {
                     </div>)
             }
         }
-        
         return (
              <div>
                  <h1>Debits</h1>
@@ -53,12 +56,11 @@ class Debits extends Component {
                     {(this.state.displayBalance)?<AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/>:""} 
                  
                  <button onClick={this.addDebits}>Add Card</button>
-                    {(this.state.addDebits)?<AddDebitsForm currentCards={this.state.debitsInfo}/>:""} 
+                    {(this.state.addDebits)?<AddDebitsForm currentCards={this.props.debits} update={this.updateDebits}/>:""} 
                 {items}
+                 
                     
-                    
-                 {/* Debits: {accountBalance} */}
-                 {/* Balance: {this.props.accountBalance} */}
+
                 
              </div>
          );

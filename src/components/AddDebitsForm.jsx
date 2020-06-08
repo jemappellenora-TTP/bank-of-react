@@ -1,16 +1,5 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
-// Adding debits:
-
-// GIVEN I am on the Debits page
-// WHEN I enter a new Debit description
-// AND WHEN I enter a new Debit amount
-// AND WHEN I click 'Add Debit'
-// THEN I should see my new debit added to the Debits display area with the current date
-// AND I should see my Account Balance updated to reflect the new Debit
-
-//need to sum up all debit cards balance
-//add form that let user input amount 
 
 class AddDebitsForm extends Component {
     constructor () {
@@ -21,8 +10,7 @@ class AddDebitsForm extends Component {
                 amount: 0,
                 date: "2020-06-20 T15:36:09.609Z"
             },
-            totalDebits:[],
-            redirect: false
+            redirect:false,
         }
       }
     handleChange=(event)=>{
@@ -33,14 +21,12 @@ class AddDebitsForm extends Component {
         this.setState({debitsInfo: updatedCard})
       }
 
-    updateCurrentCard = (e) => {
-        e.preventDefault()
-        const updateDebits = this.props.currentCards;
-        updateDebits.push(this.state.debitsInfo);
-        
+    updateCurrentCard = (event) => {
+        event.preventDefault()
+        const allCards=this.props.currentCards
+        allCards.push(this.state.debitsInfo)
+        this.props.update(allCards)
         this.setState({redirect: true});
-        this.setState({debitsInfo:updateDebits})
-        this.setState({date: new Date().toLocaleString()})
     }
 
     render() {
@@ -52,11 +38,11 @@ class AddDebitsForm extends Component {
             <div>
                 <form onSubmit={this.updateCurrentCard}>
                     <div>
-                        <label>Add new Debit description</label>
+                        <label>Add new Debits description</label>
                         <input type="text" name="description" className="debitsInfo" placeholder="description..." onChange={this.handleChange} />
                     </div>
                     <div>
-                        <label>Add new Debit amount</label>
+                        <label>Add newDebits amount</label>
                         <input type="number" name="amount" className="debitsInfo" placeholder="amount..." onChange={this.handleChange} />
                     </div>
                     <button>Add Card</button>

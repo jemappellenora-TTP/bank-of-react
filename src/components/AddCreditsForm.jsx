@@ -10,8 +10,7 @@ class AddCreditsForm extends Component {
                 amount: 0,
                 date: "2020-06-20 T15:36:09.609Z"
             },
-            totalCredit:[],
-            redirect: false
+            redirect:false,
         }
       }
     handleChange=(event)=>{
@@ -22,19 +21,17 @@ class AddCreditsForm extends Component {
         this.setState({creditsInfo: updatedCard})
       }
 
-    updateCurrentCard = (e) => {
-        e.preventDefault()
-        const updateCredit = this.props.currentCards;
-        updateCredit.push(this.state.creditssInfo);
-        
+    updateCurrentCard = (event) => {
+        event.preventDefault()
+        const allCards=this.props.currentCards
+        allCards.push(this.state.creditsInfo)
+        this.props.update(allCards)
         this.setState({redirect: true});
-        this.setState({creditsInfo:updateCredit})
-        this.setState({date: new Date().toLocaleString()})
     }
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to="/Credit"/>)
+            return (<Redirect to="/Credits"/>)
             //if the form is filled we will be redirected to our userProfile Page
           }
         return (

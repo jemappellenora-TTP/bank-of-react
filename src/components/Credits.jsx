@@ -8,6 +8,7 @@ class Credits extends Component {
     constructor(){
         super();
         this.state={
+            allCredits:[],
             displayBalance: false,
             addCredits: false,
             found: true,
@@ -23,6 +24,11 @@ class Credits extends Component {
         this.state.addCredits?this.setState({addCredits: false }):this.setState({addCredits: true })
     }
 
+    updateCredits=()=>{
+        const intCards= this.props
+        this.setState({allCredits: intCards})
+    }
+
     render() {
         const debitsSum = this.props.debitsSum;
         const items = [];
@@ -31,6 +37,7 @@ class Credits extends Component {
         if (this.state.found){ 
             for(let i=totalCards-1; i>=0;i--){
                 creditsSum= creditsSum+ this.props.credits[i].amount;
+                console.log(creditsSum)
                 items.push(
                     <div key={i}>
                         <h5>Creditcard #{i+1}</h5>
@@ -50,7 +57,7 @@ class Credits extends Component {
                     {(this.state.displayBalance)?<AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/>:""} 
                  
                  <button onClick={this.addCredits}>Add Card</button>
-                    {(this.state.addCredits)?<AddCreditsForm currentCards={this.state.creditsInfo}/>:""} 
+                    {(this.state.addCredits)?<AddCreditsForm currentCards={this.props.credits} update={this.updateCredits}/>:""} 
                 {items}
                  
                     
