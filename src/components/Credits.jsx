@@ -31,13 +31,13 @@ class Credits extends Component {
 
     render() {
         const debitsSum = this.props.debitsSum;
+        
         const items = [];
         let creditsSum= 0;
         let totalCards= [...this.props.credits].length
         if (this.state.found){ 
             for(let i=totalCards-1; i>=0;i--){
                 creditsSum= creditsSum+ this.props.credits[i].amount;
-                console.log(creditsSum)
                 items.push(
                     <div key={i}>
                         <h5>Creditcard #{i+1}</h5>
@@ -54,7 +54,11 @@ class Credits extends Component {
                  <h1>Credits</h1>
                  <Link to="/">Back to Home</Link>
                  <button onClick={this.displayBalance}>Display Balance</button>
-                    {(this.state.displayBalance)?<AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/>:""} 
+                    {(this.state.displayBalance)?<>
+                        <AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/>
+                        <p>Debits : {debitsSum}</p>
+                        <p>Credits : {creditsSum}</p></>:
+                    ""} 
                  
                  <button onClick={this.addCredits}>Add Card</button>
                     {(this.state.addCredits)?<AddCreditsForm currentCards={this.props.credits} update={this.updateCredits}/>:""} 

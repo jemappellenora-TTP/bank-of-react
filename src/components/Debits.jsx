@@ -30,7 +30,7 @@ class Debits extends Component {
     }
 
     render() {
-        const creditsSum = this.props.credits;
+        const creditsSum = this.props.creditsSum;
         const items = [];
         let debitsSum= 0;
         let totalCards= [...this.props.debits].length
@@ -53,7 +53,11 @@ class Debits extends Component {
                  <h1>Debits</h1>
                  <Link to="/">Back to Home</Link>
                  <button onClick={this.displayBalance}>Display Balance</button>
-                    {(this.state.displayBalance)?<AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/>:""} 
+                    {(this.state.displayBalance)?<>
+                        <p>Account Balance: <AccountBalance debitsSum={debitsSum} creditsSum={creditsSum}/></p>
+                        <p>Debits : {debitsSum}</p>
+                        <p>Credits : {creditsSum}</p></>
+                        :""} 
                  
                  <button onClick={this.addDebits}>Add Card</button>
                     {(this.state.addDebits)?<AddDebitsForm currentCards={this.props.debits} update={this.updateDebits}/>:""} 
